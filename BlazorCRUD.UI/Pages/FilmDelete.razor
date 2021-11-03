@@ -1,12 +1,12 @@
-﻿@page "/filmdetails";
-@page "/filmdetails/{id:int}";
+﻿@page "/filmdelete/{id:int}";
 
 @using Model
 @using Interfaces
 @inject IFilmService FilmService
 @inject NavigationManager NavigationManager
 
-<h1>Film Details</h1>
+<h3>Film Delete</h3>
+<p style="color: red; text-align: center">Are you sure you want to delete this film?</p>
 
 <EditForm Model="@film">
     <table class="table">
@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td colspan="2" style="text-align:center">
-                <input type="submit" value="Save" @onclick="SaveFilm" />
+                <input type="submit" value="Delete" @onclick="DeleteFilm" />
                 <input type="button" value="Cancel" @onclick="CancelFilm" />
             </td>
         </tr>
@@ -42,23 +42,14 @@
         NavigationManager.NavigateTo("filmlist");
     }
 
-    protected async Task SaveFilm()
+    protected async Task DeleteFilm()
     {
-        await FilmService.SaveFilm(film);
+        await FilmService.DeleteFilm(id);
         NavigationManager.NavigateTo("filmlist");
     }
 
     protected override async Task OnInitializedAsync()
     {
-        if (id == 0)
-        {
-            film.ReleaseDate = DateTime.Now;
-        }
-        else
-        {
-            film = await FilmService.GetDetails(id);
-        }
+        film = await FilmService.GetDetails(id);
     }
-
-
 }

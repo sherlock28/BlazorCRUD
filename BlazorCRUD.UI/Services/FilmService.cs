@@ -21,7 +21,7 @@ namespace BlazorCRUD.UI.Services
 
         public Task<bool> DeleteFilm(int id)
         {
-            throw new NotImplementedException();
+            return _filmRepository.DeleteFilm(id);
         }
 
         public Task<IEnumerable<Film>> GetAllFilms()
@@ -31,7 +31,7 @@ namespace BlazorCRUD.UI.Services
 
         public Task<Film> GetDetails(int id)
         {
-            throw new NotImplementedException();
+            return _filmRepository.GetFilmDetails(id);
         }
 
         public Task<bool> SaveFilm(Film film)
@@ -41,7 +41,7 @@ namespace BlazorCRUD.UI.Services
                 return _filmRepository.InsertFilm(film);
             }
             else {
-                return null;
+                return _filmRepository.UpdateFilm(film);
             }
         }
     }
